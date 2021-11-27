@@ -1,0 +1,3 @@
+Typical way of working with forms is by using controlled events, onChange and useState. <br>
+But there is another way using *refs* (using *useRef* hook): way to get a reference to a raw dom element directly, like in vanilla js (queryselectors). we can get refs to each of our inputs, and using them we can get access to the input values. <br>
+But this refs method is less used, as its more in line with what react was designed for, using refs is reverting back to js way. <br>

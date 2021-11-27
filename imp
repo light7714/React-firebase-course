@@ -1,0 +1,5 @@
+npx create-react-app app-name
+
+8-onwards:
+npm install -g json-server
+json-server --watch ./data/db.json

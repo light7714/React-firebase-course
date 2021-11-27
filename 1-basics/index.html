@@ -1,0 +1,65 @@
+<!-- only building a single react component in this html page-->
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script
+			crossorigin
+			src="https://unpkg.com/react@17/umd/react.development.js"
+		></script>
+		<script
+			crossorigin
+			src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+		></script>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<title>Document</title>
+	</head>
+	<body>
+		<h1>My website</h1>
+
+		<div id="banner"></div>
+
+		<footer>
+			<p>footer</p>
+		</footer>
+
+		<script type="text/babel">
+			//react components are here
+			//react comps starts with a capital letter
+			const Banner = () => {
+				const title = 'Welcome boi';
+				const subtitle = 'shutup and bend over';
+				// const handleClick = (e) => {
+				//     alert('You clicked the button');
+				// }
+				const address = 'https://www.google.com';
+				//creating a template for the component by returning the template
+				//JSX
+				return (
+					//some differences in jsx and html, like cant use class attrib of html directly (as class is a js keyword), instead we have className
+					//must have a single root element in jsx
+					// <div></div> this is wrong
+					<div className="banner">
+						<h2>{title.toUpperCase()}</h2>
+						<p>{subtitle}</p>
+						{/*
+						<p>Today's Date :{new Date().toDateString()}</p>
+						<p>Random number: {Math.random() * 100}</p>
+            <a href={address}>Go to google</a>
+          */}
+						<button
+							onClick={() => {
+								alert('You clicked the button');
+							}}
+						>
+							Click here
+						</button>
+					</div>
+				);
+			};
+			//1st arg is comp we wanna render (in </>), 2nd arg is place where we wanna render
+			ReactDOM.render(<Banner />, document.getElementById('banner'));
+		</script>
+	</body>
+</html>
