@@ -1,0 +1,21 @@
+/* css modules: Automatically scope css rules to only apply to specific comp, and not globally */
+/* this card class will change to EventList_card_(randomLetters) in DOM*/
+/* so only in the component where we imported the css module and used it (styles.card), this changed class will be applied. All other places where class="card" will not be affected */
+.card {
+	border: 1px solid #eee;
+	box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.05);
+	padding: 10px;
+	max-width: 400px;
+	margin: 20px auto;
+	border-radius: 4px;
+}
+
+/* this will be global, rules are only scoped to when they include a class or id selector, not applied to whole tag*/
+/* button {
+    background-color: #555;
+  } */
+
+/* this will be scoped */
+.card button {
+	background-color: #555;
+}
