@@ -3,3 +3,6 @@ npx create-react-app app-name
 8-onwards:
 npm install -g json-server
 json-server --watch ./data/db.json
+
+10-onwards
+npm install react-router-dom@5.2.0
