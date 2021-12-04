@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useFetch } from '../../hooks/useFetch';
+// import { useFetch } from '../../hooks/useFetch';
+import { projectFirestore } from '../../firebase/config';
 
 import './Create.css';
 
@@ -13,33 +14,48 @@ export default function Create() {
 
 	const history = useHistory();
 
-	const { postData, data, error } = useFetch(
-		'http://localhost:3000/recipes',
-		'POST'
-	);
+	// const { postData, data, error } = useFetch(
+	// 	'http://localhost:3000/recipes',
+	// 	'POST'
+	// );
 
 	//we wanna focus input when entering new ingredients, so making a ref to the ingredients input
 	const ingredientInput = useRef(null);
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		//json server automatically adds a unique id when it saves new data
-		postData({
+		// // json server automatically adds a unique id when it saves new data
+		// postData({
+		// 	title,
+		// 	ingredients,
+		// 	method,
+		// 	cookingTime: cookingTime + 'minutes',
+		// });
+
+		const doc = {
 			title,
 			ingredients,
 			method,
 			cookingTime: cookingTime + 'minutes',
-		});
-		//we need to redirect to home page after data is posted, but dont do here, as postData() is async
+		};
+
+		//automatically adds a unique id
+		try {
+			await projectFirestore.collection('recipes').add(doc);
+			// now redirect can be done here, as we're using await
+			history.push('/');
+		} catch (err) {
+			console.log('error in handleSubmit() in Create.js:', err);
+		}
 	};
 
-	//redirect the user when we get data response
-	useEffect(() => {
-		if (data) {
-			history.push('/');
-		}
-	}, [data, history]);
+	// //redirect the user when we get data response (not done in handleSubmit as postData is async)
+	// useEffect(() => {
+	// 	if (data) {
+	// 		history.push('/');
+	// 	}
+	// }, [data, history]);
 
 	const handleAdd = (e) => {
 		e.preventDefault();
