@@ -1,0 +1,4 @@
+note for earlier chapters: useState is not async, the setVariable fn returned from useState is async..  (see more abt hooks)
+
+## useFetch working here:
+when we do `useFetch(url, 'POST')`, inside useFetch, the options is not yet set (async) so when useEffect runs for the 1st time, nothing will happen (empty states of data, error, are returned from useFetch). When in other place we then run postData(options), options state made in useFetch is now set, so useEffect runs again (options is in dependency array), now method (as already supplied earlier) is POST and options is set, so fetchData(options will run).
