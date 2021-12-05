@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { projectAuth } from '../firebase/config';
 import { useAuthContext } from './useAuthContext';
 
 export const useSignup = () => {
+	const [isCancelled, setIsCancelled] = useState(false);
 	const [error, setError] = useState(null);
 	const [isPending, setIsPending] = useState(false);
 	const { dispatch } = useAuthContext();
+
+	//see useLogout for explanation on isCancelled and cleanup fn
 
 	//firebase auth allows us to set display name on user (and some others, like photoUrl) (cant just set any property)
 	const signup = async (email, password, displayName) => {
@@ -36,15 +39,25 @@ export const useSignup = () => {
 				payload: res.user,
 			});
 
-			//WHY error null HERE??
-			setError(null);
-			setIsPending(false);
+			if (!isCancelled) {
+				//WHY error null HERE??
+				setError(null);
+				setIsPending(false);
+			}
 		} catch (err) {
-			console.log('err in signup() in useSignup:', err.message);
-			setError(err.message);
-			setIsPending(false);
+			if (!isCancelled) {
+				console.log('err in signup() in useSignup:', err.message);
+				setError(err.message);
+				setIsPending(false);
+			}
 		}
 	};
+
+	useEffect(() => {
+		return () => {
+			setIsCancelled(true);
+		};
+	}, []);
 
 	return { error, isPending, signup };
 };
