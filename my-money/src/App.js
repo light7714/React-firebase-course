@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { useAuthContext } from './hooks/useAuthContext';
 
 //pages & comps
@@ -9,7 +9,7 @@ import Navbar from './components/Navbar';
 
 function App() {
 	//will be false at starting (even at a refresh), then true once we check with firebase if user is logged in or not (in AuthContext)
-	const { authIsReady } = useAuthContext();
+	const { authIsReady, user } = useAuthContext();
 
 	return (
 		<div className="App">
@@ -18,13 +18,16 @@ function App() {
 					<Navbar />
 					<Switch>
 						<Route exact path="/">
-							<Home />
+							{/* logged out user should be redirected */}
+							{user ? <Home /> : <Redirect to="/login" />}
 						</Route>
 						<Route path="/login">
-							<Login />
+							{/* only go here when user is not logged in, else redirect */}
+							{!user ? <Login /> : <Redirect to="/" />}
 						</Route>
 						<Route path="/signup">
-							<Signup />
+							{/* only go here when user is not logged in, else redirect */}
+							{!user ? <Signup /> : <Redirect to="/" />}
 						</Route>
 					</Switch>
 				</BrowserRouter>

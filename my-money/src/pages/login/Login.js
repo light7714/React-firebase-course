@@ -7,7 +7,7 @@ import styles from './Login.module.css';
 export default function Login() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const {login, error, isPending} = useLogin();
+	const { login, error, isPending } = useLogin();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -16,7 +16,7 @@ export default function Login() {
 	};
 
 	return (
-    // when class has -, we do this (as in js - means substract)
+		// when class has -, we do this (as in js - means substract)
 		<form onSubmit={handleSubmit} className={styles['login-form']}>
 			<h2>Login</h2>
 			<label>
@@ -38,7 +38,11 @@ export default function Login() {
 			{/* <button className="btn">Login</button> */}
 
 			{!isPending ? <button className="btn">Login</button> : null}
-      {isPending ? <button className="btn" disabled>Loading...</button> : null}
+			{isPending ? (
+				<button className="btn" disabled>
+					Loading...
+				</button>
+			) : null}
 			{error ? <p>{error}</p> : null}
 		</form>
 	);

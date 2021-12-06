@@ -37,6 +37,8 @@ export const AuthContextProvider = ({ children }) => {
 		//whenever a user logs in or out, the state changes using dispatch, so all comps inside authcontextprovider rerender, and so does this code (I GUESS ??), and therefore, so does this useEffect. We only need to do this once initially, and not everytime
 		//thats why we unsubscribe from this listener after initial check
 
+		//OR maybe this onAuthStateChanged observer does not automatically unsubscribes, this always fires in the back when user logs in or out.
+
 		const unsub = projectAuth.onAuthStateChanged((user) => {
 			dispatch({
 				type: 'AUTH_IS_READY',
