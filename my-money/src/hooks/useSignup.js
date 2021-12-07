@@ -34,6 +34,7 @@ export const useSignup = () => {
 			await res.user.updateProfile({ displayName });
 
 			// dispatch login action
+			// user has a uid property also..
 			dispatch({
 				type: 'LOGIN',
 				payload: res.user,

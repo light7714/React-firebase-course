@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  //default line, matching all dbs and docs.. ?
+  match /databases/{database}/documents {
+    // matches only transactions collections, and all docs inside it
+    match /transactions/{document=**} {
+      // allow read, write: if
+      //     request.time < timestamp.date(2022, 1, 5);
+      // allow read, write;  //forever
+
+      //write means create, update, delete all bundled in one. here we're splitting, and not allowing update
+      // allow read, create, delete;
+
+      //only allowing create when user is logged in
+      //on each req, jwt is sent
+      allow create: if request.auth != null;
+
+      //checking if the uid of user making this req is equal to uid property in the resource (document) they are trying to fetch
+      allow read, delete: if request.auth.uid == resource.data.uid;
+    }
+  }
+}

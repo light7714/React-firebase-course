@@ -6,3 +6,9 @@ json-server --watch ./data/db.json
 
 10-onwards
 npm install react-router-dom@5.2.0
+
+13-onwards
+npm install firebase@8.5
+
+15-onwards
+npm install -g firebase-tools
