@@ -9,6 +9,7 @@
 /coverage
 
 # production
+build
 /build
 
 # misc
@@ -23,3 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 node_modules
+
+.cache
+.firebase
