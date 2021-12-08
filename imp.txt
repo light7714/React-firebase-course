@@ -12,3 +12,6 @@ npm install firebase@8.5
 
 15-onwards
 npm install -g firebase-tools
+
+17
+npm install react-select
